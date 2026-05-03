@@ -1626,12 +1626,12 @@
 <body>
     <nav>
         <ul>
-            <li><button onclick="showPage('home')" class="nav-btn active">Home</button></li>
-            <li><button onclick="showPage('about')" class="nav-btn">About</button></li>
-            <li><button onclick="showPage('skills')" class="nav-btn">Skills</button></li>
-            <li><button onclick="showPage('projects')" class="nav-btn">Projects</button></li>
-            <li><button onclick="showPage('documents')" class="nav-btn">Documents</button></li>
-            <li><button onclick="showPage('contact')" class="nav-btn">Contact</button></li>
+            <li><button class="nav-btn active" data-page="home">Home</button></li>
+            <li><button class="nav-btn" data-page="about">About</button></li>
+            <li><button class="nav-btn" data-page="skills">Skills</button></li>
+            <li><button class="nav-btn" data-page="projects">Projects</button></li>
+            <li><button class="nav-btn" data-page="documents">Documents</button></li>
+            <li><button class="nav-btn" data-page="contact">Contact</button></li>
         </ul>
     </nav>
 
@@ -1660,7 +1660,7 @@
             <div class="home-content">
                 <h1>Hi, I'm Gift Mahlambi</h1> 
                 <p>Computer Engineering Graduate | Network & Cloud Enthusiast | DevOps | Software developer</p>
-                <button class="cta-button" onclick="showPage('projects')">View My Work</button>
+                <button class="cta-button">View My Work</button>
             </div>
             <div class="tech-icons">
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="tech-icon" title="Python">
@@ -2140,7 +2140,7 @@
                     <div class="project-card">
                         <h3>Certifications</h3>
                         <p>View my professional certifications and course completions.</p>
-                        <a href="Letter of Completion’s Mahlambi Gift - 222198001.pdf" class="cta-button" style="margin-top: 1rem; display: inline-block; font-size: 0.9rem; padding: 0.7rem 1.5rem;">Download PDF</a>
+                        <a href="Qualification.pdf" class="cta-button" style="margin-top: 1rem; display: inline-block; font-size: 0.9rem; padding: 0.7rem 1.5rem;">Download PDF</a>
                     </div>
                 </div>
             </div>
@@ -2191,25 +2191,59 @@
         </div>
     </div>
 
+    <!-- Voiceflow chatbot container (bottom-left, above tech bar) -->
+    <div id="vf-chat-container" style="
+        position: fixed;
+        bottom: 2rem;
+        left: 2rem;
+        width: 370px;
+        height: 520px;
+        z-index: 1500;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(34,211,238,0.2);
+        background: #0a1628;
+    "></div>
+
     <script>
-        function showPage(pageName) {
-            // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => {
-                page.classList.remove('active');
-            });
+        /* ── Page navigation (used by nav buttons AND chatbot) ── */
+        function showPage(pageName, triggerBtn) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(pageName);
+            if (target) target.classList.add('active');
 
-            // Show selected page
-            const selectedPage = document.getElementById(pageName);
-            selectedPage.classList.add('active');
-
-            // Update navigation active state
-            const navButtons = document.querySelectorAll('.nav-btn');
-            navButtons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            if (triggerBtn) {
+                triggerBtn.classList.add('active');
+            } else {
+                // activate the matching nav button by data or text
+                document.querySelectorAll('.nav-btn').forEach(b => {
+                    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(pageName)) {
+                        b.classList.add('active');
+                    }
+                });
+            }
         }
+
+        // Wrap original onclick calls to pass the button reference
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                showPage(this.dataset.page, this);
+            });
+        });
+
+        // "View My Work" CTA button
+        document.querySelector('.cta-button').addEventListener('click', function() {
+            showPage('projects');
+        });
+
+        /* ── Global function the chatbot calls to switch pages ── */
+        window.navigateToPage = function(pageName) {
+            const valid = ['home','about','skills','projects','documents','contact'];
+            if (valid.includes(pageName.toLowerCase())) {
+                showPage(pageName.toLowerCase());
+            }
+        };
 
         // Video modal functions
         function openVideoModal(modalId) {
@@ -2262,6 +2296,43 @@
 
         // Prevent scrolling
         document.body.style.overflow = 'hidden';
+    </script>
+
+    <!-- Voiceflow widget loader -->
+    <script type="text/javascript">
+        (function(d, t) {
+            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            v.onload = function() {
+                window.voiceflow.chat.load({
+                    verify: { projectID: '69f7bab0952c4d55531b01d9' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production',
+                    voice: {
+                        url: 'https://runtime-api.voiceflow.com'
+                    },
+                    render: {
+                        mode: 'embedded',
+                        target: document.getElementById('vf-chat-container')
+                    },
+                    autostart: false
+                });
+
+                /* Listen for chatbot messages and navigate if a page is mentioned */
+                window.voiceflow.chat.onMessage = function(message) {
+                    if (!message || !message.text) return;
+                    const text = message.text.toLowerCase();
+                    const pages = ['home','about','skills','projects','documents','contact'];
+                    pages.forEach(function(page) {
+                        if (text.includes(page)) {
+                            window.navigateToPage(page);
+                        }
+                    });
+                };
+            };
+            v.src = 'https://cdn.voiceflow.com/widget-next/bundle.mjs';
+            v.type = 'text/javascript';
+            s.parentNode.insertBefore(v, s);
+        })(document, 'script');
     </script>
 </body>
 </html>
