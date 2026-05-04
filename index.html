@@ -2200,9 +2200,7 @@
         }
 
         document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                showPage(this.dataset.page);
-            });
+            btn.addEventListener('click', function() { showPage(this.dataset.page); });
         });
 
         document.querySelector('.cta-button').addEventListener('click', function() {
@@ -2214,21 +2212,14 @@
             modal.classList.add('active');
             modal.querySelector('video').play();
         }
-
         function closeVideoModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.querySelector('video').pause();
             modal.querySelector('video').currentTime = 0;
             modal.classList.remove('active');
         }
-
-        function openPhotoModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-        }
-
-        function closePhotoModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
+        function openPhotoModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closePhotoModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
 
         document.addEventListener('click', function(event) {
             document.querySelectorAll('.video-modal').forEach(modal => {
@@ -2246,7 +2237,6 @@
         document.body.style.overflow = 'hidden';
     </script>
 
-    <!-- Voiceflow Chatbot -->
     <script type="text/javascript">
       (function(d, t) {
           var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
@@ -2262,78 +2252,6 @@
           }
           v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
       })(document, 'script');
-    </script>
-</body>
-
-        // Video modal functions
-        function openVideoModal(modalId) {
-            const modal = document.getElementById(modalId);
-            const video = modal.querySelector('video');
-            modal.classList.add('active');
-            video.play();
-        }
-
-        function closeVideoModal(modalId) {
-            const modal = document.getElementById(modalId);
-            const video = modal.querySelector('video');
-            video.pause();
-            video.currentTime = 0;
-            modal.classList.remove('active');
-        }
-
-        // Photo modal functions
-        function openPhotoModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.add('active');
-        }
-
-        function closePhotoModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.remove('active');
-        }
-
-        // Close modals when clicking outside the content
-        document.addEventListener('click', function(event) {
-            // Close video modals
-            const videoModals = document.querySelectorAll('.video-modal');
-            videoModals.forEach(modal => {
-                if (event.target === modal) {
-                    const video = modal.querySelector('video');
-                    video.pause();
-                    video.currentTime = 0;
-                    modal.classList.remove('active');
-                }
-            });
-
-            // Close photo modals
-            const photoModals = document.querySelectorAll('.photo-modal');
-            photoModals.forEach(modal => {
-                if (event.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
-        });
-
-        // Prevent scrolling
-        document.body.style.overflow = 'hidden';
-    </script>
-
-    <!-- Voiceflow widget loader -->
-    <script type="text/javascript">
-        (function(d, t) {
-            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-            v.onload = function() {
-              window.voiceflow.chat.load({
-                verify: { projectID: '69f7bab0952c4d55531b01d9' },
-                url: 'https://general-runtime.voiceflow.com',
-                versionID: 'production',
-                voice: {
-                  url: "https://runtime-api.voiceflow.com"
-                }
-              });
-            }
-            v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-        })(document, 'script');
     </script>
 </body>
 </html>
