@@ -2249,11 +2249,77 @@
                 url: "https://runtime-api.voiceflow.com"
               },
               assistant: {
-                color: '#10b981',
-                bubbleTextColor: '#ffffff',
-                title: 'Gift\'s Assistant',
-                description: 'Ask me anything about Gift\'s portfolio',
-                stylesheet: 'https://fonts.googleapis.com/css2?family=Segoe+UI'
+                color: '#22d3ee',
+                bubbleTextColor: '#0a1628',
+                title: "Gift's Portfolio Assistant",
+                description: 'Ask me anything about Gift',
+                stylesheet: `
+                  .vfrc-widget {
+                    --vf-primary: #22d3ee;
+                    --vf-secondary: #10b981;
+                    --vf-background: #0a1628;
+                    --vf-chat-background: #0f2847;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                  }
+                  .vfrc-launcher {
+                    width: 56px !important;
+                    height: 56px !important;
+                    background: linear-gradient(135deg, #22d3ee 0%, #10b981 100%) !important;
+                    box-shadow: 0 4px 20px rgba(34, 211, 238, 0.5) !important;
+                    border: none !important;
+                  }
+                  .vfrc-launcher:hover {
+                    transform: scale(1.1) !important;
+                    box-shadow: 0 6px 28px rgba(34, 211, 238, 0.7) !important;
+                  }
+                  .vfrc-widget--chat {
+                    width: 380px !important;
+                    height: 560px !important;
+                    border-radius: 16px !important;
+                    border: 1.5px solid rgba(34, 211, 238, 0.3) !important;
+                    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(34,211,238,0.15) !important;
+                    background: #0a1628 !important;
+                  }
+                  .vfrc-header {
+                    background: linear-gradient(135deg, #0f2847 0%, #1a365d 100%) !important;
+                    border-bottom: 1px solid rgba(34, 211, 238, 0.2) !important;
+                  }
+                  .vfrc-header--title {
+                    color: #22d3ee !important;
+                    font-weight: 700 !important;
+                  }
+                  .vfrc-header--description {
+                    color: #94a3b8 !important;
+                  }
+                  .vfrc-message--content {
+                    background: rgba(15, 40, 71, 0.8) !important;
+                    border: 1px solid rgba(34, 211, 238, 0.15) !important;
+                    color: #e2e8f0 !important;
+                    border-radius: 12px !important;
+                  }
+                  .vfrc-message--content.user {
+                    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+                    border: none !important;
+                    color: #ffffff !important;
+                  }
+                  .vfrc-chat-input {
+                    background: rgba(15, 40, 71, 0.9) !important;
+                    border-top: 1px solid rgba(34, 211, 238, 0.2) !important;
+                  }
+                  .vfrc-chat-input--textarea {
+                    background: rgba(10, 22, 40, 0.8) !important;
+                    color: #e2e8f0 !important;
+                    border: 1px solid rgba(34, 211, 238, 0.25) !important;
+                    border-radius: 8px !important;
+                  }
+                  .vfrc-chat-input--textarea::placeholder {
+                    color: #64748b !important;
+                  }
+                  .vfrc-chat-input--button {
+                    background: linear-gradient(135deg, #22d3ee 0%, #10b981 100%) !important;
+                    border-radius: 8px !important;
+                  }
+                `
               }
             });
           }
