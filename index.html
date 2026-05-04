@@ -1079,6 +1079,51 @@
             margin-right: 0.5rem;
         }
 
+        .github-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            color: white;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .github-btn:before { content: "⌥"; margin-right: 0.5rem; }
+        .github-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(55,65,81,0.6);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .cert-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+        .cert-item {
+            display: block;
+            padding: 0.6rem 1rem;
+            background: rgba(15, 40, 71, 0.6);
+            border: 1px solid rgba(34, 211, 238, 0.25);
+            border-radius: 8px;
+            color: #e2e8f0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.25s ease;
+        }
+        .cert-item:hover {
+            background: rgba(34, 211, 238, 0.1);
+            border-color: #22d3ee;
+            color: #22d3ee;
+            transform: translateX(6px);
+        }
+
         /* Skills Page */
         .skills-page {
             display: block;
@@ -1856,6 +1901,7 @@
                         <div class="media-buttons">
                             <button class="view-video-btn" onclick="openVideoModal('washing-machine-video')">Watch Demo Video</button>
                             <button class="view-photos-btn" onclick="openPhotoModal('washing-machine-photos')">View Project Photos</button>
+                            <a href="https://github.com/GiftMahlambi/Washing-Machine-Controller" target="_blank" rel="noopener noreferrer" class="github-btn">View on GitHub</a>
                         </div>
                     </div>
                     
@@ -2133,14 +2179,20 @@
                 <div class="projects-grid">
                     <div class="project-card">
                         <h3>Resume / CV</h3>
-                        <p>Download my latest resume with detailed work experience and qualifications.</p>
+                        <p>Download my latest resume showcasing my skills, projects, and academic background in Computer Engineering.</p>
                         <a href="Gift Mahlambi Resume.pdf" class="cta-button" style="margin-top: 1rem; display: inline-block; font-size: 0.9rem; padding: 0.7rem 1.5rem;">Download PDF</a>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>Qualification</h3>
+                        <p>View my academic qualification from the Cape Peninsula University of Technology (CPUT).</p>
+                        <a href="Qualification.pdf" target="_blank" class="cta-button" style="margin-top: 1rem; display: inline-block; font-size: 0.9rem; padding: 0.7rem 1.5rem;">View PDF</a>
                     </div>
                     
                     <div class="project-card">
-                        <h3>Qualification</h3>
-                        <p>View my professional certifications and course completions.</p>
-                        <a href="Qualification.pdf" class="cta-button" style="margin-top: 1rem; display: inline-block; font-size: 0.9rem; padding: 0.7rem 1.5rem;">Download PDF</a>
+                        <h3>Certifications</h3>
+                        <p>Professional certifications and course completions in AI, Machine Learning and Data Science.</p>
+                        <button class="cta-button" onclick="openCertModal()" style="margin-top: 1rem; font-size: 0.9rem; padding: 0.7rem 1.5rem;">View Certifications</button>
                     </div>
                 </div>
             </div>
@@ -2156,6 +2208,22 @@
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" class="tech-icon" title="C#">
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" class="tech-icon" title="MySQL">
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="DevOps" class="tech-icon" title="Kubernetes">
+            </div>
+        </div>
+    </div>
+
+    <!-- Certifications Modal -->
+    <div id="cert-modal" class="photo-modal">
+        <div class="photo-modal-content" style="max-width: 600px;">
+            <button class="photo-close" onclick="closeCertModal()">&times;</button>
+            <h3 class="photo-gallery-title">My Certifications</h3>
+            <div class="cert-list">
+                <a href="Certifications/AI For Everyone Certificate.pdf" target="_blank" class="cert-item">📄 AI For Everyone</a>
+                <a href="Certifications/Generative AI Certificate.pdf" target="_blank" class="cert-item">📄 Generative AI</a>
+                <a href="Certifications/Generative AI with Large Language Models.pdf" target="_blank" class="cert-item">📄 Generative AI with Large Language Models</a>
+                <a href="Certifications/Introduction to Artificial Intelligence (AI) Certificate.pdf" target="_blank" class="cert-item">📄 Introduction to Artificial Intelligence (AI)</a>
+                <a href="Certifications/Introduction to Generative AI.pdf" target="_blank" class="cert-item">📄 Introduction to Generative AI</a>
+                <a href="Certifications/Python for Data Science,AI And Development.pdf" target="_blank" class="cert-item">📄 Python for Data Science, AI & Development</a>
             </div>
         </div>
     </div>
@@ -2218,6 +2286,8 @@
             modal.querySelector('video').currentTime = 0;
             modal.classList.remove('active');
         }
+        function openCertModal() { document.getElementById('cert-modal').classList.add('active'); }
+        function closeCertModal() { document.getElementById('cert-modal').classList.remove('active'); }
         function openPhotoModal(modalId) { document.getElementById(modalId).classList.add('active'); }
         function closePhotoModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
 
@@ -2232,6 +2302,7 @@
             document.querySelectorAll('.photo-modal').forEach(modal => {
                 if (event.target === modal) modal.classList.remove('active');
             });
+            if (event.target === document.getElementById('cert-modal')) closeCertModal();
         });
 
         document.body.style.overflow = 'hidden';
